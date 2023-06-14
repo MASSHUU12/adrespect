@@ -8,7 +8,6 @@ In addition, it allows converting a given amount from a selected currency to ano
   * [Installation](#installation)
       * [Enabling Apache module](#enabling-apache-module)
       * [Database setup (Docker)](#database-setup-docker)
-
 <!-- TOC -->
 
 * PHP 8+
@@ -19,10 +18,11 @@ In addition, it allows converting a given amount from a selected currency to ano
 ## Installation
 
 1. Clone the repository `git clone https://github.com/MASSHUU12/adrespect.git`
-2. Setup database (see [below](#database-setup-docker))
-3. Enable Apache module for URL rewriting (see [below](#enabling-apache-module))
-4. Start the server
-5. Navigate to the `localhost:80`
+2. Copy the `.env.example` file and rename it to `.env`
+3. Setup database (see [below](#database-setup-docker))
+4. Enable Apache module for URL rewriting (see [below](#enabling-apache-module))
+5. Start the server
+6. Navigate to the `localhost:80`
 
 ### Enabling Apache module
 
@@ -35,4 +35,5 @@ In addition, it allows converting a given amount from a selected currency to ano
 
 ### Database setup (Docker)
 
-1. From the root folder run `docker compose up`.
+1. From the root folder run `docker compose up`
+2. If necessary, adjust the database connection in the `.env` file
