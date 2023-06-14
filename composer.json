@@ -2,6 +2,7 @@
     "name": "vendor_name/adrespect",
     "description": "description",
     "minimum-stability": "stable",
+    "prefer-stable": true,
     "license": "proprietary",
     "authors": [
         {
@@ -10,6 +11,18 @@
         }
     ],
     "require": {
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "php": ">=8.0",
+        "ext-mysqli": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "App\\Helpers\\": "app/Helpers/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
     }
 }
