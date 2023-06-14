@@ -5,24 +5,34 @@ In addition, it allows converting a given amount from a selected currency to ano
 
 <!-- TOC -->
 * [Task](#task)
-  * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-<!-- TOC -->
+      * [Enabling Apache module](#enabling-apache-module)
+      * [Database setup (Docker)](#database-setup-docker)
 
-## Prerequisites
+<!-- TOC -->
 
 * PHP 8+
 * MySQL
 * XAMPP (or other Apache server)
+* Docker
 
 ## Installation
 
 1. Clone the repository `git clone https://github.com/MASSHUU12/adrespect.git`
-2. Enable Apache module for URL rewriting:
-    * In XAMPP open the `httpd.conf` file located in the `apache\conf`
-    * Search for the following line and remove the `#`:
-        ```txt
-        #LoadModule rewrite_module modules/mod_rewrite.so
-        ```
-3. Start the server
-4. Navigate to the `localhost:80`
+2. Setup database (see [below](#database-setup-docker))
+3. Enable Apache module for URL rewriting (see [below](#enabling-apache-module))
+4. Start the server
+5. Navigate to the `localhost:80`
+
+### Enabling Apache module
+
+1. In XAMPP open the `httpd.conf` file located in the `apache\conf`
+2. Search for the following line and remove the `#`:
+
+```txt
+#LoadModule rewrite_module modules/mod_rewrite.so
+```
+
+### Database setup (Docker)
+
+1. From the root folder run `docker compose up`.
