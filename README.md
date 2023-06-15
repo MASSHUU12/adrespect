@@ -44,3 +44,8 @@ In addition, it allows converting a given amount from a selected currency to ano
 Tests are located in `tests/` directory.
 
 To run tests use `./vendor/bin/phpunit tests`, if it doesn't work first run `composer dumpautoload` and try again.
+
+## Troubleshooting
+
+If you're getting warning:
+`Warning: The lock file is not up to date with the latest changes in composer.json.` use `composer update --lock`
