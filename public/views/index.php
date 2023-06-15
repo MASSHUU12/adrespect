@@ -19,12 +19,13 @@ use App\Helpers\NBP;
 if (isset($_POST['delete-db']))
     echo 'delete';
 if (isset($_POST['save-exchange-rates']))
-    print_r(NBP::get_exchange_rates());
+    NBP::save_exchange_rates(NBP::get_exchange_rates());
+
 ?>
 <main>
     <form action="#" method="post">
         <input type="submit" name="delete-db" value="Delete db"/>
-        <input type="submit" name="get-exchange-rates" value="Save exchange rates"/>
+        <input type="submit" name="save-exchange-rates" value="Save exchange rates"/>
     </form>
 </main>
 </body>
