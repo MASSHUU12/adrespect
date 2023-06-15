@@ -27,4 +27,22 @@ class Convert
         $value = filter_var($str, FILTER_VALIDATE_FLOAT);
         return ($value !== false) ? floatval($value) : null;
     }
+
+    /**
+     * Converts an amount from one currency to another based on the exchange rates.
+     *
+     * @param float $amount The amount of money to be converted.
+     * @param float $from_mid The exchange rate for the currency converting from.
+     * @param float $to_mid The exchange rate for the currency converting to.
+     *
+     * @return float The converted amount.
+     */
+    public static function currency(float $amount, float $from_mid, float $to_mid, int $precision = 2): float
+    {
+        // Convert to PLN
+        $amount_pln = $amount * $from_mid;
+
+        // Convert the amount to the new currency
+        return number_format($amount_pln / $to_mid, $precision);
+    }
 }

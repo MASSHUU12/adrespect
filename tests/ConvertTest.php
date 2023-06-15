@@ -25,4 +25,31 @@ class ConvertTest extends TestCase
         $this->assertSame(null, Convert::str_to_float("abc"));
         $this->assertSame(null, Convert::str_to_float(""));
     }
+
+    public function testCurrencyConversion()
+    {
+        // Case 1: 100 USD to EUR
+        $amount = 100;
+        $from = 1;
+        $to = 0.92;
+
+        $converted = Convert::currency($amount, $from, $to);
+        $this->assertEquals(108.7, $converted);
+
+        // Case 2: 50 EUR to USD
+        $amount = 50;
+        $from = 0.92;
+        $to = 1;
+
+        $converted = Convert::currency($amount, $from, $to);
+        $this->assertEquals(46.0, $converted);
+
+        // Case 3: Converting 0
+        $amount = 0;
+        $from = 1;
+        $to = 0.92;
+
+        $converted = Convert::currency($amount, $from, $to);
+        $this->assertEquals(0, $converted);
+    }
 }
