@@ -37,12 +37,12 @@ class Convert
      *
      * @return float The converted amount.
      */
-    public static function currency(float $amount, float $from_mid, float $to_mid): float
+    public static function currency(float $amount, float $from_mid, float $to_mid, int $precision = 2): float
     {
-        // Calculate the conversion rate
-        $conversion_rate = $to_mid / $from_mid;
+        // Convert to PLN
+        $amount_pln = $amount * $from_mid;
 
         // Convert the amount to the new currency
-        return $amount * $conversion_rate;
+        return number_format($amount_pln / $to_mid, $precision);
     }
 }

@@ -34,7 +34,7 @@ class ConvertTest extends TestCase
         $to = 0.92;
 
         $converted = Convert::currency($amount, $from, $to);
-        $this->assertEquals(92, $converted);
+        $this->assertEquals(108.7, $converted);
 
         // Case 2: 50 EUR to USD
         $amount = 50;
@@ -42,10 +42,7 @@ class ConvertTest extends TestCase
         $to = 1;
 
         $converted = Convert::currency($amount, $from, $to);
-        $expected = 54.35;
-        $delta = 0.01;
-
-        $this->assertTrue(abs($expected - $converted) < $delta);
+        $this->assertEquals(46.0, $converted);
 
         // Case 3: Converting 0
         $amount = 0;
