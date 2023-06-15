@@ -2,10 +2,11 @@
 
 require '../vendor/autoload.php';
 
-use App\Helpers\NBP;
 use Dotenv\Dotenv;
 
 Dotenv::createImmutable("../")->load();
+
+require_once "./views/index.php";
 
 //DB::connect();
 
@@ -17,4 +18,4 @@ Dotenv::createImmutable("../")->load();
 
 //Log::error("Hi");
 
-NBP::get_exchange_rates();
+//NBP::get_exchange_rates();
