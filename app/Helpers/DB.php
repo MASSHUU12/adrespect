@@ -51,9 +51,6 @@ class DB
     public static function query(string $sql): mysqli_result|bool {
         if (!self::$conn)
             self::connect();
-
-        Log::error();
-
         return self::$conn->query($sql);
     }
 }

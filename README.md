@@ -9,6 +9,7 @@ In addition, it allows converting a given amount from a selected currency to ano
       * [Enabling Apache module](#enabling-apache-module)
       * [Database setup (Docker)](#database-setup-docker)
   * [Testing](#testing)
+  * [Troubleshooting](#troubleshooting)
 <!-- TOC -->
 
 * PHP 8+
@@ -21,9 +22,10 @@ In addition, it allows converting a given amount from a selected currency to ano
 1. Clone the repository `git clone https://github.com/MASSHUU12/adrespect.git`
 2. Copy the `.env.example` file and rename it to `.env`
 3. Setup database (see [below](#database-setup-docker))
-4. Enable Apache module for URL rewriting (see [below](#enabling-apache-module))
-5. Start the server
-6. Navigate to the `localhost:80`
+4. Run migration using `php cli.php migrate:fresh`
+5. Enable Apache module for URL rewriting (see [below](#enabling-apache-module))
+6. Start the server
+7. Navigate to the `localhost:80`
 
 ### Enabling Apache module
 
@@ -44,3 +46,8 @@ In addition, it allows converting a given amount from a selected currency to ano
 Tests are located in `tests/` directory.
 
 To run tests use `./vendor/bin/phpunit tests`, if it doesn't work first run `composer dumpautoload` and try again.
+
+## Troubleshooting
+
+If you're getting warning:
+`Warning: The lock file is not up to date with the latest changes in composer.json.` use `composer update --lock`

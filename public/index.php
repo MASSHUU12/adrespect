@@ -2,19 +2,20 @@
 
 require '../vendor/autoload.php';
 
-use App\Helpers\DB;
-use App\Helpers\Log;
 use Dotenv\Dotenv;
 
 Dotenv::createImmutable("../")->load();
 
-DB::connect();
+require_once "./views/index.php";
 
-$query = DB::query("SELECT value FROM test");
+//DB::connect();
 
-DB::disconnect();
+//$query = DB::query("SELECT value FROM test");
 
-print_r($query->fetch_all());
+//DB::disconnect();
 
-Log::error("Hi");
+//print_r($query->fetch_all());
 
+//Log::error("Hi");
+
+//NBP::get_exchange_rates();
