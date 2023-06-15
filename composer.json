@@ -11,10 +11,11 @@
         }
     ],
     "require": {
-        "vlucas/phpdotenv": "^5.5",
         "php": ">=8.0",
+        "ext-curl": "*",
         "ext-mysqli": "*",
-        "ext-curl": "*"
+        "symfony/console": "^6.3",
+        "vlucas/phpdotenv": "^5.5"
     },
     "autoload": {
         "psr-4": {
