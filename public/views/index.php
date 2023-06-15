@@ -56,13 +56,14 @@ if (isset($_POST['currency-convert'])) {
         return;
     }
 
-    $result = DB::query("
-        SELECT code, mid FROM exchange_rates WHERE code IN (
-            '$source', '$target'
-        ) ORDER BY FIELD(
-            code, '$source', '$target'
-        )
-    ")->fetch_all();
+    $sql = 'SELECT code, mid FROM exchange_rates WHERE code IN (
+        :source, :target
+    ) ORDER BY FIELD(
+        code, :source, :target
+    )';
+    $params = [':source' => $source, ':target' => $target];
+
+    $result = DB::query($sql, $params)->fetchAll();
     DB::disconnect();
 
     // If one (or more) currencies not found, return error

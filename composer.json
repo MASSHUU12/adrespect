@@ -13,9 +13,9 @@
     "require": {
         "php": ">=8.0",
         "ext-curl": "*",
-        "ext-mysqli": "*",
         "symfony/console": "^6.3",
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {

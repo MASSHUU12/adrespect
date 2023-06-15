@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Exception;
+use PDO;
 
 class NBP
 {
@@ -72,7 +73,7 @@ class NBP
         if (!DB::connect())
             return false;
 
-        $db_result = DB::query('SELECT * FROM exchange_rates LIMIT 250;')->fetch_all();
+        $db_result = DB::query('SELECT * FROM exchange_rates LIMIT 250;')->fetchAll(PDO::FETCH_ASSOC);
 
         if (count($db_result) < 1)
             return false;
