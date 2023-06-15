@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\Convert;
+use App\Helpers\DB;
 use App\Helpers\NBP;
 
 ?>
@@ -43,12 +44,40 @@ if (isset($_POST['currency-convert'])) {
     $source = $_POST['currency-source'] ?? null;
     $target = $_POST['currency-target'] ?? null;
 
-    if (!is_int(Convert::str_to_int($amount)) || is_null($source) || is_null($target)) {
+    $amount_as_int = Convert::str_to_int($amount);
+
+    if (!is_int($amount_as_int) || is_null($source) || is_null($target)) {
         echo 'Incorrect data received';
         return;
     }
 
-    echo "Amount: $amount, source: $source, target: $target";
+    if (!DB::connect()) {
+        echo 'Connection with database failed.';
+        return;
+    }
+
+    $result = DB::query("
+        SELECT code, mid FROM exchange_rates WHERE code IN (
+            '$source', '$target'
+        ) ORDER BY FIELD(
+            code, '$source', '$target'
+        )
+    ")->fetch_all();
+    DB::disconnect();
+
+    // If one (or more) currencies not found, return error
+    if (count($result) < 2) {
+        echo 'Source or target are invalid.';
+        return;
+    }
+
+    $db_source_mid = $result[0][1];
+    $db_source_name = $result[0][0];
+    $db_target_mid = $result[1][1];
+    $db_target_name = $result[1][0];
+    $converted = Convert::currency($amount_as_int, $db_source_mid, $db_target_mid);
+
+    echo "Source: $amount $db_source_name, converted: $converted $db_target_name";
 }
 ?>
 </body>
