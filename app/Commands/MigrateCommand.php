@@ -20,28 +20,28 @@ class MigrateCommand extends Command
         DB::connect();
 
         try {
-            DB::query('DROP TABLE exchange_rates');
-            $output->writeln('Deleting exchange_rates table.');
+            DB::query('TRUNCATE TABLE exchange_rates');
+            $output->writeln('Truncating exchange_rates table.');
         } catch (Exception) {
             $output->writeln('There is no exchange_rates table. Creating it now.');
-        }
 
-        try {
-            DB::query('
-            CREATE TABLE exchange_rates (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                table_name VARCHAR(50),
-                number VARCHAR(50),
-                effective_date DATE,
-                currency VARCHAR(100),
-                code VARCHAR(10),
-                mid DECIMAL(10, 4)
-            )
-        ');
-        } catch (Exception) {
-            $output->writeln('There was a problem while creating the table.
-            Make sure the database is running and the connection to it is configured correctly');
-            return Command::FAILURE;
+            try {
+                DB::query('
+                    CREATE TABLE exchange_rates (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        table_name VARCHAR(50),
+                        number VARCHAR(50),
+                        effective_date DATE,
+                        currency VARCHAR(100),
+                        code VARCHAR(10),
+                        mid DECIMAL(10, 4)
+                    )
+                ');
+            } catch (Exception) {
+                $output->writeln('There was a problem while creating the table.
+                    Make sure the database is running and the connection to it is configured correctly');
+                return Command::FAILURE;
+            }
         }
 
         DB::disconnect();
