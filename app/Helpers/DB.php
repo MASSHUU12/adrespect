@@ -15,9 +15,10 @@ class DB
     /**
      * Establishes a connection to the database.
      *
-     * @return void
+     * @return bool
      */
-    public static function connect(): void {
+    public static function connect(): bool
+    {
         $host = $_ENV['DB_HOST'];
         $username = $_ENV['DB_USERNAME'];
         $password = $_ENV['DB_PASSWORD'];
@@ -27,7 +28,8 @@ class DB
         self::$conn = new mysqli($host, $username, $password, $dbname, $port);
 
         if (self::$conn->connect_error)
-            die("Connection failed: " . self::$conn->connect_error);
+            return false;
+        return true;
     }
 
     /**
@@ -50,7 +52,8 @@ class DB
      */
     public static function query(string $sql): mysqli_result|bool {
         if (!self::$conn)
-            self::connect();
+            if (!self::connect())
+                return false;
         return self::$conn->query($sql);
     }
 }
