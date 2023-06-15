@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-use Dotenv\Dotenv;
 use mysqli;
 use mysqli_result;
 
@@ -19,9 +18,6 @@ class DB
      * @return void
      */
     public static function connect(): void {
-        $dotenv = Dotenv::createImmutable("../");
-        $dotenv->load();
-
         $host = $_ENV['DB_HOST'];
         $username = $_ENV['DB_USERNAME'];
         $password = $_ENV['DB_PASSWORD'];
@@ -55,6 +51,8 @@ class DB
     public static function query(string $sql): mysqli_result|bool {
         if (!self::$conn)
             self::connect();
+
+        Log::error();
 
         return self::$conn->query($sql);
     }
