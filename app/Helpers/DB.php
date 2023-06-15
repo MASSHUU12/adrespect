@@ -52,10 +52,14 @@ class DB
      * @param string $sql The SQL query to execute.
      * @return PDOStatement|bool The PDOStatement object or `false` on failure.
      */
-    public static function query(string $sql): PDOStatement|bool
+    public static function query(string $sql, array $params = []): PDOStatement|bool
     {
         if (!self::$conn && !self::connect())
             return false;
-        return self::$conn->query($sql);
+
+        $statement = self::$conn->prepare($sql);
+        $statement->execute($params);
+
+        return $statement;
     }
 }
