@@ -8,6 +8,7 @@ In addition, it allows converting a given amount from a selected currency to ano
   * [Installation](#installation)
       * [Enabling Apache module](#enabling-apache-module)
       * [Database setup (Docker)](#database-setup-docker)
+  * [Testing](#testing)
 <!-- TOC -->
 
 * PHP 8+
@@ -37,3 +38,9 @@ In addition, it allows converting a given amount from a selected currency to ano
 
 1. From the root folder run `docker compose up`
 2. If necessary, adjust the database connection in the `.env` file
+
+## Testing
+
+Tests are located in `tests/` directory.
+
+To run tests use `./vendor/bin/phpunit tests`, if it doesn't work first run `composer dumpautoload` and try again.
