@@ -12,7 +12,18 @@ class API
     public const PUT = 'PUT';
     public const DELETE = 'DELETE';
 
-    public static function call(string $url, string $method = self::GET, $data = null, array $headers = []): mixed
+    /**
+     * Make an API call.
+     *
+     * @param string $url The URL to send the request to.
+     * @param string $method The HTTP method to use for the request. Defaults to GET.
+     * @param mixed $data The request data. It can be any valid data type or null. Defaults to null.
+     * @param array $headers Additional headers to include in the request. Defaults to an empty array.
+     * @return array The response from the API as an associative array.
+     * @throws RuntimeException if the request fails or the HTTP status code is not in the 200-299 range.
+     * @throws InvalidArgumentException if an invalid URL or HTTP method is provided.
+     */
+    public static function call(string $url, string $method = self::GET, $data = null, array $headers = []): array
     {
         self::validate($url, $method);
 
@@ -62,6 +73,14 @@ class API
             throw new RuntimeException('HTTP request failed with status code: ' . $status_code);
     }
 
+    /**
+     * Validate the URL and HTTP method.
+     *
+     * @param string $url The URL to validate.
+     * @param string $method The HTTP method to validate.
+     * @return void
+     * @throws InvalidArgumentException if an invalid URL or HTTP method is provided.
+     */
     private static function validate(string $url, string $method): void
     {
         // Validate URL
