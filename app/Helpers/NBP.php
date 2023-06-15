@@ -60,4 +60,23 @@ class NBP
 
         return true;
     }
+
+    /**
+     * Generates an HTML table from the exchange rates stored in the database.
+     *
+     * @return string|bool The generated HTML table or false if there are no exchange rates in the database.
+     * @throws Exception If there is an error during the database operation.
+     */
+    public static function generate_exchange_rates_table(): string|bool
+    {
+        if (!DB::connect())
+            return false;
+
+        $db_result = DB::query('SELECT * FROM exchange_rates LIMIT 250;')->fetch_all();
+
+        if (count($db_result) < 1)
+            return false;
+
+        return Helpers::generate_table($db_result, ['ID', 'Table Name', 'Number', 'Effective Date', 'Currency', 'Code', 'Mid']);
+    }
 }
