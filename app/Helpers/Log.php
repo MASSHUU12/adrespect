@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 class Log
 {
+
     /**
      * Logs an error message.
      *
@@ -22,7 +23,7 @@ class Log
         $info = $show_caller ? self::get_caller_info() . ' ' : '';
         $style = $colored ? " style='background-color: red; color: whitesmoke; padding: 0.3rem;'" : '';
 
-        echo "<p$style>$info $message</p>";
+        echo "<p$style>$info$message</p>";
     }
 
     /**
@@ -45,6 +46,9 @@ class Log
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
         $caller = $backtrace[1];
 
-        return '[' . $caller['file'] . ': ' . $caller['line'] . ']';
+        $file = $caller['file'];
+        $line = $caller['line'];
+
+        return "[$file: $line]";
     }
 }
