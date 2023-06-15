@@ -44,6 +44,8 @@ class MigrateCommand extends Command
             return Command::FAILURE;
         }
 
+        DB::disconnect();
+
         $output->writeln('Migration completed.');
 
         return Command::SUCCESS;
