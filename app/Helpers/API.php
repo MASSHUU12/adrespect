@@ -14,14 +14,7 @@ class API
 
     public static function call(string $url, string $method = self::GET, $data = null, array $headers = []): mixed
     {
-        // Validate URL
-        if (!filter_var($url, FILTER_VALIDATE_URL))
-            throw new InvalidArgumentException('Invalid URL provided.');
-
-        // Validate HTTP method
-        $valid_methods = [self::GET, self::POST, self::PUT, self::DELETE];
-        if (!in_array($method, $valid_methods))
-            throw new InvalidArgumentException('Invalid HTTP method provided.');
+        self::validate($url, $method);
 
         $curl = curl_init($url);
 
@@ -39,6 +32,9 @@ class API
         $headers[] = 'Accept: application/json';
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
 
         // Send the request and get the response
         $response = curl_exec($curl);
@@ -64,5 +60,17 @@ class API
             return json_decode($response, true);
         else
             throw new RuntimeException('HTTP request failed with status code: ' . $status_code);
+    }
+
+    private static function validate(string $url, string $method): void
+    {
+        // Validate URL
+        if (!filter_var($url, FILTER_VALIDATE_URL))
+            throw new InvalidArgumentException('Invalid URL provided.');
+
+        // Validate HTTP method
+        $valid_methods = [self::GET, self::POST, self::PUT, self::DELETE];
+        if (!in_array($method, $valid_methods))
+            throw new InvalidArgumentException('Invalid HTTP method provided.');
     }
 }
