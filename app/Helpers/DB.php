@@ -31,7 +31,8 @@ class DB
             self::$conn = new PDO($dsn, $username, $password);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return true;
-        } catch (PDOException) {
+        } catch (PDOException $e) {
+            Log::error($e);
             return false;
         }
     }
@@ -58,8 +59,11 @@ class DB
             return false;
 
         $statement = self::$conn->prepare($sql);
-        $statement->execute($params);
 
+        if (!$statement->execute($params)) {
+            Log::error($statement->errorInfo()[2]);
+            return false;
+        }
         return $statement;
     }
 }

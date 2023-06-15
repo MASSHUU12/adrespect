@@ -13,4 +13,8 @@ $application = new Application();
 
 $application->add(new MigrateCommand());
 
-$application->run();
+try {
+    $application->run();
+} catch (Exception $e) {
+    echo $e;
+}
