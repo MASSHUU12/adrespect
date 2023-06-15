@@ -62,7 +62,7 @@ if (isset($_POST['currency-convert'])) {
         ) ORDER BY FIELD(
             code, '$source', '$target'
         )
-    ")->fetch_all();
+    ")->fetchAll();
     DB::disconnect();
 
     // If one (or more) currencies not found, return error

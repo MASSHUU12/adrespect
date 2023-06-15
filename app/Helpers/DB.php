@@ -2,15 +2,16 @@
 
 namespace App\Helpers;
 
-use mysqli;
-use mysqli_result;
+use PDO;
+use PDOException;
+use PDOStatement;
 
 class DB
 {
     /**
-     * @var mysqli|null
+     * @var PDO|null
      */
-    private static ?mysqli $conn = null;
+    private static ?PDO $conn = null;
 
     /**
      * Establishes a connection to the database.
@@ -25,11 +26,14 @@ class DB
         $dbname = $_ENV['DB_DATABASE'];
         $port = $_ENV['DB_PORT'];
 
-        self::$conn = new mysqli($host, $username, $password, $dbname, $port);
-
-        if (self::$conn->connect_error)
+        try {
+            $dsn = "mysql:host=$host;dbname=$dbname;port=$port";
+            self::$conn = new PDO($dsn, $username, $password);
+            self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return true;
+        } catch (PDOException) {
             return false;
-        return true;
+        }
     }
 
     /**
@@ -37,23 +41,21 @@ class DB
      *
      * @return void
      */
-    public static function disconnect(): void {
-        if (self::$conn) {
-            self::$conn->close();
-            self::$conn = null;
-        }
+    public static function disconnect(): void
+    {
+        self::$conn = null;
     }
 
     /**
      * Executes a database query.
      *
      * @param string $sql The SQL query to execute.
-     * @return mysqli_result|bool The result object or `false` on failure.
+     * @return PDOStatement|bool The PDOStatement object or `false` on failure.
      */
-    public static function query(string $sql): mysqli_result|bool {
-        if (!self::$conn)
-            if (!self::connect())
-                return false;
+    public static function query(string $sql): PDOStatement|bool
+    {
+        if (!self::$conn && !self::connect())
+            return false;
         return self::$conn->query($sql);
     }
 }
