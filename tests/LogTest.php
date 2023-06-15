@@ -23,7 +23,7 @@ class LogTest extends TestCase
     {
         $message = 'Test error message';
         $file = __FILE__;
-        $line = 37;
+        $line = 30;
         $expected_log = "<p>[$file: $line] $message</p>";
 
         ob_start();
