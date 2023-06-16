@@ -67,10 +67,12 @@ class API
         curl_close($curl);
 
         // Process the response
-        if ($status_code >= 200 && $status_code < 300)
+        if ($status_code >= 200 && $status_code < 300) {
             return json_decode($response, true);
-        else
+        } else {
             throw new RuntimeException('HTTP request failed with status code: ' . $status_code);
+        }
+
     }
 
     /**
@@ -84,12 +86,14 @@ class API
     private static function validate(string $url, string $method): void
     {
         // Validate URL
-        if (!filter_var($url, FILTER_VALIDATE_URL))
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
             throw new InvalidArgumentException('Invalid URL provided.');
+        }
 
         // Validate HTTP method
         $valid_methods = [self::GET, self::POST, self::PUT, self::DELETE];
-        if (!in_array($method, $valid_methods))
+        if (!in_array($method, $valid_methods)) {
             throw new InvalidArgumentException('Invalid HTTP method provided.');
+        }
     }
 }

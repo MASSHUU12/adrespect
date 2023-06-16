@@ -14,6 +14,37 @@ class DB
     private static ?PDO $conn = null;
 
     /**
+     * Closes the database connection.
+     *
+     * @return void
+     */
+    public static function disconnect(): void
+    {
+        self::$conn = null;
+    }
+
+    /**
+     * Executes a database query.
+     *
+     * @param string $sql The SQL query to execute.
+     * @return PDOStatement|bool The PDOStatement object or `false` on failure.
+     */
+    public static function query(string $sql, array $params = []): PDOStatement|bool
+    {
+        if (!self::$conn && !self::connect()) {
+            return false;
+        }
+
+        $statement = self::$conn->prepare($sql);
+
+        if (!$statement->execute($params)) {
+            Log::error($statement->errorInfo()[2]);
+            return false;
+        }
+        return $statement;
+    }
+
+    /**
      * Establishes a connection to the database.
      *
      * @return bool
@@ -35,35 +66,5 @@ class DB
             Log::error($e);
             return false;
         }
-    }
-
-    /**
-     * Closes the database connection.
-     *
-     * @return void
-     */
-    public static function disconnect(): void
-    {
-        self::$conn = null;
-    }
-
-    /**
-     * Executes a database query.
-     *
-     * @param string $sql The SQL query to execute.
-     * @return PDOStatement|bool The PDOStatement object or `false` on failure.
-     */
-    public static function query(string $sql, array $params = []): PDOStatement|bool
-    {
-        if (!self::$conn && !self::connect())
-            return false;
-
-        $statement = self::$conn->prepare($sql);
-
-        if (!$statement->execute($params)) {
-            Log::error($statement->errorInfo()[2]);
-            return false;
-        }
-        return $statement;
     }
 }

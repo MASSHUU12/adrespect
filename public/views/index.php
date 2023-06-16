@@ -33,10 +33,12 @@ use App\Helpers\NBP;
     </form>
 </main>
 <?php
-if (isset($_POST['save-exchange-rates']))
+if (isset($_POST['save-exchange-rates'])) {
     NBP::save_exchange_rates(NBP::get_exchange_rates());
-if (isset($_POST['generate-exchange-rates-table']))
+}
+if (isset($_POST['generate-exchange-rates-table'])) {
     echo NBP::generate_exchange_rates_table();
+}
 
 // Converter form
 if (isset($_POST['currency-convert'])) {
