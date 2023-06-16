@@ -60,7 +60,9 @@ found [here](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer#editor-integration).
 
 Tests are located in `tests/` directory.
 
-To run tests use `./vendor/bin/phpunit tests`, if it doesn't work first run `composer dumpautoload` and try again.
+To run tests use `composer run tests` or `./vendor/bin/phpunit tests`.
+
+If it doesn't work first run `composer dumpautoload` and try again.
 
 ## Troubleshooting
 

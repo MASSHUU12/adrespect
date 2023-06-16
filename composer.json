@@ -10,6 +10,10 @@
             "email": "email@example.com"
         }
     ],
+    "scripts": {
+        "test": "./vendor/bin/phpunit tests",
+        "tests": "./vendor/bin/phpunit tests"
+    },
     "require": {
         "php": ">=8.0",
         "ext-curl": "*",
