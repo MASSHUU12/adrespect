@@ -13,12 +13,14 @@ class Log
      * @param bool $colored (Optional) Whether to apply styling to the message. Default is false.
      * @return void
      */
-    public static function error(string $message = '',
-                                 bool   $show_caller = true,
-                                 bool   $colored = false): void
-    {
-        if (!self::is_debug_enabled())
+    public static function error(
+        string $message = '',
+        bool   $show_caller = true,
+        bool   $colored = false
+    ): void {
+        if (!self::is_debug_enabled()) {
             return;
+        }
 
         $info = $show_caller ? self::get_caller_info() . ' ' : '';
         $style = $colored ? " style='background-color: red; color: whitesmoke; padding: 0.3rem;'" : '';
