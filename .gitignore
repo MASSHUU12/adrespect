@@ -1,7 +1,7 @@
 .env
 
-# Created by https://www.toptal.com/developers/gitignore/api/phpunit,intellij+all,visualstudiocode,composer
-# Edit at https://www.toptal.com/developers/gitignore?templates=phpunit,intellij+all,visualstudiocode,composer
+# Created by https://www.toptal.com/developers/gitignore/api/phpunit,composer,intellij+all,visualstudiocode,php-cs-fixer
+# Edit at https://www.toptal.com/developers/gitignore?templates=phpunit,composer,intellij+all,visualstudiocode,php-cs-fixer
 
 ### Composer ###
 composer.phar
@@ -99,6 +99,16 @@ fabric.properties
 !.idea/codeStyles
 !.idea/runConfigurations
 
+### PHP-CS-Fixer ###
+# Covers PHP CS Fixer
+# Reference: https://cs.symfony.com/
+
+# Generated files
+.php-cs-fixer.cache
+
+# Local config See: https://cs.symfony.com/doc/config.html
+.php-cs-fixer.php
+
 ### PHPUnit ###
 # Covers PHPUnit
 # Reference: https://phpunit.de/
@@ -133,4 +143,4 @@ fabric.properties
 .history
 .ionide
 
-# End of https://www.toptal.com/developers/gitignore/api/phpunit,intellij+all,visualstudiocode,composer
+# End of https://www.toptal.com/developers/gitignore/api/phpunit,composer,intellij+all,visualstudiocode,php-cs-fixer
