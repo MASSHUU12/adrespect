@@ -1,26 +1,13 @@
-version: '3.9'
+version: '3.8'
 services:
-    apache:
-        build: "./build/php"
-        restart: always
-        depends_on:
-            - db
-            - phpmyadmin
-        volumes:
-            - .:/var/www/html/
-        ports:
-            - "80:80"
     db:
         image: mysql
         restart: always
-        build: "./build/mysql"
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: adrespect
         ports:
             - "3308:3306"
-        volumes:
-            - dbData:/var/lib/mysql
     phpmyadmin:
         image: phpmyadmin/phpmyadmin:latest
         restart: always
@@ -30,6 +17,3 @@ services:
             PMA_PASSWORD: root
         ports:
             - "8080:80"
-volumes:
-    app:
-    dbData:
