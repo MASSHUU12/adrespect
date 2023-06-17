@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\ExchangeRatesModel;
 use Exception;
 use PDO;
 
@@ -43,19 +44,11 @@ class NBP
             $code = $rate['code'];
             $mid = $rate['mid'];
 
-            try {
-                DB::query("
-                INSERT INTO `exchange_rates` (
-                    `id`, `table_name`, `number`, `effective_date`, `currency`, `code`, `mid`
-                ) VALUES (
-                    NULL, '$table', '$no', '$effective_date', '$currency', '$code', '$mid'
-                )");
-            } catch (Exception $exception) {
-                Log::error($exception);
+            if (!ExchangeRatesModel::create([$table, $no, $effective_date, $currency, $code, $mid])) {
                 return false;
             }
         }
-        DB::disconnect();
+        ExchangeRatesModel::disconnect();
 
         Log::error('Exchange rates successfully uploaded to the database.', false);
 
@@ -66,7 +59,6 @@ class NBP
      * Generates an HTML table from the exchange rates stored in the database.
      *
      * @return string|bool The generated HTML table or false if there are no exchange rates in the database.
-     * @throws Exception If there is an error during the database operation.
      */
     public static function generate_exchange_rates_table(): string|bool
     {
