@@ -59,7 +59,6 @@ class NBP
      * Generates an HTML table from the exchange rates stored in the database.
      *
      * @return string|bool The generated HTML table or false if there are no exchange rates in the database.
-     * @throws Exception If there is an error during the database operation.
      */
     public static function generate_exchange_rates_table(): string|bool
     {

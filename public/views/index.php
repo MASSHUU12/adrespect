@@ -3,6 +3,7 @@
 use App\Helpers\Convert;
 use App\Helpers\DB;
 use App\Helpers\NBP;
+use App\Models\ExchangeRatesModel;
 
 ?>
 <!DOCTYPE html>
@@ -65,8 +66,8 @@ if (isset($_POST['currency-convert'])) {
     )';
     $params = [':source' => $source, ':target' => $target];
 
-    $result = DB::query($sql, $params)->fetchAll();
-    DB::disconnect();
+    $result = ExchangeRatesModel::query($sql, $params)->fetchAll();
+    ExchangeRatesModel::disconnect();
 
     // If one (or more) currencies not found, return error
     if (count($result) < 2) {
