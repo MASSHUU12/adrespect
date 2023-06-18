@@ -22,6 +22,38 @@ class Model
     protected static array $fillable = [];
 
     /**
+     * @return PDOStatement|bool
+     */
+    public static function truncate(): PDOStatement|bool
+    {
+        $query = sprintf('TRUNCATE TABLE %s', static::$table);
+
+        return DB::query($query);
+    }
+
+    /**
+     * Execute a database query with optional parameters.
+     *
+     * @param string $sql The SQL query string.
+     * @param array $params [optional] The parameters to bind to the query.
+     * @return PDOStatement|bool Returns PDOStatement on success or false on failure.
+     */
+    public static function query(string $sql, array $params = []): PDOStatement|bool
+    {
+        return DB::query($sql, $params);
+    }
+
+    /**
+     * Disconnect from the database.
+     *
+     * @return void
+     */
+    public static function disconnect(): void
+    {
+        DB::disconnect();
+    }
+
+    /**
      * Create a new record in the database.
      *
      * @param array $values The attribute values to be inserted.
@@ -63,23 +95,6 @@ class Model
     }
 
     /**
-     * Execute a database query with optional parameters.
-     *
-     * @param string $sql The SQL query string.
-     * @param array $params [optional] The parameters to bind to the query.
-     * @return PDOStatement|bool Returns PDOStatement on success or false on failure.
-     */
-    public static function query(string $sql, array $params = []): PDOStatement|bool
-    {
-        $statement = DB::query($sql, $params);
-
-        if (!$statement) {
-            return false;
-        }
-        return $statement;
-    }
-
-    /**
      * Retrieve all records from the associated table.
      *
      * @return PDOStatement|bool Returns PDOStatement on success or false on failure.
@@ -93,15 +108,5 @@ class Model
             return false;
         }
         return $statement;
-    }
-
-    /**
-     * Disconnect from the database.
-     *
-     * @return void
-     */
-    public static function disconnect(): void
-    {
-        DB::disconnect();
     }
 }
