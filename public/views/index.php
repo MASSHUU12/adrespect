@@ -3,6 +3,7 @@
 use App\Helpers\Convert;
 use App\Helpers\DB;
 use App\Helpers\NBP;
+use App\Models\CurrencyConversionsModel;
 use App\Models\ExchangeRatesModel;
 
 ?>
@@ -80,6 +81,8 @@ if (isset($_POST['currency-convert'])) {
     $db_target_mid = $result[1][1];
     $db_target_name = $result[1][0];
     $converted = Convert::currency($amount_as_int, $db_source_mid, $db_target_mid);
+
+    CurrencyConversionsModel::insert([$source, $amount, $target, $converted]);
 
     echo "Source: $amount $db_source_name, converted: $converted $db_target_name";
 }
