@@ -13,8 +13,7 @@ class CurrencyConversionsModel extends Model
         'source_currency_code',
         'source_currency_amount',
         'target_currency_code',
-        'target_currency_amount',
-        'conversion_date'
+        'target_currency_amount'
     ];
 
     /**
@@ -30,7 +29,7 @@ class CurrencyConversionsModel extends Model
             source_currency_amount DECIMAL(10, 4),
             target_currency_code VARCHAR(10),
             target_currency_amount DECIMAL(10, 4),
-            conversion_date DATE
+            conversion_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )', static::$table);
 
         return DB::query($query);
