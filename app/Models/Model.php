@@ -22,7 +22,9 @@ class Model
     protected static array $fillable = [];
 
     /**
-     * @return PDOStatement|bool
+     * Truncates the table associated with the model.
+     *
+     * @return PDOStatement|bool Returns a PDOStatement object on success or `false` on failure.
      */
     public static function truncate(): PDOStatement|bool
     {
@@ -41,6 +43,18 @@ class Model
     public static function query(string $sql, array $params = []): PDOStatement|bool
     {
         return DB::query($sql, $params);
+    }
+
+    /**
+     * Drops the table associated with the model.
+     *
+     * @return PDOStatement|bool Returns a PDOStatement object on success or `false` on failure.
+     */
+    public static function drop(): PDOStatement|bool
+    {
+        $query = sprintf('DROP TABLE %s', static::$table);
+
+        return DB::query($query);
     }
 
     /**
