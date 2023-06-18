@@ -40,4 +40,17 @@ class Helpers
 
         return $output;
     }
+
+    /**
+     * Cleans a string by replacing spaces with underscores and removing special characters.
+     *
+     * @param string $string The string to be cleaned.
+     * @return string The cleaned string.
+     */
+    public static function clean_string(string $string): string
+    {
+        $string = str_replace(' ', '_', $string); // Replaces all spaces with hyphens.
+
+        return preg_replace('/[^A-Za-z0-9\-_]/', '', $string); // Removes special chars.
+    }
 }
