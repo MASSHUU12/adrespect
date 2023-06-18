@@ -44,7 +44,7 @@ class NBP
             $code = $rate['code'];
             $mid = $rate['mid'];
 
-            if (!ExchangeRatesModel::create([$table, $no, $effective_date, $currency, $code, $mid])) {
+            if (!ExchangeRatesModel::insert([$table, $no, $effective_date, $currency, $code, $mid])) {
                 return false;
             }
         }

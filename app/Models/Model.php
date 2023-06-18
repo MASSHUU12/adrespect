@@ -54,12 +54,12 @@ class Model
     }
 
     /**
-     * Create a new record in the database.
+     * Insert a new record into the database.
      *
      * @param array $values The attribute values to be inserted.
      * @return PDOStatement|bool Returns PDOStatement on success or false on failure.
      */
-    public static function create(array $values): PDOStatement|bool
+    public static function insert(array $values): PDOStatement|bool
     {
         $query = sprintf(
             "INSERT INTO %s (%s) VALUES (%s)",
