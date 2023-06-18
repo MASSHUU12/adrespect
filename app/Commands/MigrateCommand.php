@@ -21,18 +21,18 @@ class MigrateCommand extends Command
         DB::connect();
 
         // Exchange rates migration
-        if (ExchangeRatesModel::truncate() !== false) {
-            $output->writeln('Truncating exchange_rates table.');
-        } else {
+        if (ExchangeRatesModel::drop() !== false) {
+            $output->writeln('Dropped exchange_rates table.');
+
             if (ExchangeRatesModel::create() !== false) {
                 $output->writeln('Created exchange_rates table.');
             }
         }
 
         // Currency conversions migration
-        if (CurrencyConversionsModel::truncate() !== false) {
-            $output->writeln('Truncating exchange_rates table.');
-        } else {
+        if (CurrencyConversionsModel::drop() !== false) {
+            $output->writeln('Dropped exchange_rates table.');
+
             if (CurrencyConversionsModel::create() !== false) {
                 $output->writeln('Created exchange_rates table.');
             }
