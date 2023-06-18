@@ -12,6 +12,7 @@ conversion to the database.
         * [Enabling Apache module](#enabling-apache-module)
         * [Database setup (Docker)](#database-setup-docker)
         * [Code formatting](#code-formatting)
+    * [CLI](#cli)
     * [Testing](#testing)
     * [Troubleshooting](#troubleshooting)
 
@@ -55,6 +56,13 @@ to format the code.
 
 Instructions on how to use this and integrate with the IDE can be
 found [here](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer#editor-integration).
+
+## CLI
+
+The project is supplied, with a basic CLI, the following describes its functions:
+
+* `env:validate`: Validates environment configuration
+* `migrate:fresh`: Resets the database to its initial state
 
 ## Testing
 
