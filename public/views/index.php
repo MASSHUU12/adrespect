@@ -92,7 +92,7 @@ if (isset($_POST['currency-convert'])) {
 if (isset($_POST['generate-currency-conversions-list'])) {
     $out = [];
 
-    foreach (CurrencyConversionsModel::get(10)->fetchAll(PDO::FETCH_ASSOC) as $elem) {
+    foreach (CurrencyConversionsModel::get(10, ['conversion_date'], false)->fetchAll(PDO::FETCH_ASSOC) as $elem) {
         $source_amount = $elem['source_currency_amount'];
         $source_code = $elem['source_currency_code'];
         $target_amount = $elem['target_currency_amount'];

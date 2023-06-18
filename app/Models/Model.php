@@ -108,15 +108,27 @@ class Model
         return implode(',', array_fill(0, count($values), '?'));
     }
 
+
     /**
      * Retrieve records from the associated table.
      *
      * @param int|null $limit The maximum number of records to retrieve. If null, retrieves all records.
+     * @param array $order_by An array specifying the columns to order the records by.
+     * @param bool $ascending Specifies whether the records should be sorted in ascending order. Default is true.
      * @return PDOStatement|bool Returns a PDOStatement object on success or false on failure.
      */
-    public static function get(?int $limit): PDOStatement|bool
+    public static function get(?int $limit, array $order_by = [], bool $ascending = true): PDOStatement|bool
     {
-        $query = sprintf("SELECT * FROM %s %s", static::$table, "LIMIT $limit" ?? '');
+        $query_limit = !is_null($limit) ? "LIMIT $limit " : '';
+        $query_direction = $ascending ? 'ASC' : 'DESC';
+        $query_order = !empty($order_by) ? 'ORDER BY ' . implode(',', $order_by) . " $query_direction " : '';
+
+        $query = 'SELECT * FROM ' .
+            static::$table . ' ' .
+            $query_order .
+            $query_limit .
+            ';';
+
         return DB::query($query);
     }
 }
