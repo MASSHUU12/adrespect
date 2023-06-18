@@ -3,7 +3,7 @@
 namespace App\Commands;
 
 use App\Helpers\DB;
-use Exception;
+use App\Models\ExchangeRatesModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,29 +19,24 @@ class MigrateCommand extends Command
     {
         DB::connect();
 
-        try {
-            DB::query('TRUNCATE TABLE exchange_rates');
-            $output->writeln('Truncating exchange_rates table.');
-        } catch (Exception) {
-            $output->writeln('There is no exchange_rates table. Creating it now.');
+        $truncate = ExchangeRatesModel::truncate();
 
-            try {
-                DB::query('
-                    CREATE TABLE exchange_rates (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        table_name VARCHAR(50),
-                        number VARCHAR(50),
-                        effective_date DATE,
-                        currency VARCHAR(100),
-                        code VARCHAR(10),
-                        mid DECIMAL(10, 4)
-                    )
-                ');
-            } catch (Exception) {
-                $output->writeln('There was a problem while creating the table.
-                    Make sure the database is running and the connection to it is configured correctly');
+        if ($truncate !== false) {
+            $output->writeln('Truncating exchange_rates table.');
+        } else {
+            $create = ExchangeRatesModel::create();
+
+            if ($create === false) {
+                $output->writeln(
+                    'There was a problem while creating the table. Make sure the database is running and the connection to it is configured correctly'
+                );
+
+                DB::disconnect();
+
                 return Command::FAILURE;
             }
+
+            $output->writeln('Created exchange_rates table.');
         }
 
         DB::disconnect();
