@@ -109,18 +109,14 @@ class Model
     }
 
     /**
-     * Retrieve all records from the associated table.
+     * Retrieve records from the associated table.
      *
-     * @return PDOStatement|bool Returns PDOStatement on success or false on failure.
+     * @param int|null $limit The maximum number of records to retrieve. If null, retrieves all records.
+     * @return PDOStatement|bool Returns a PDOStatement object on success or false on failure.
      */
-    public static function get(): PDOStatement|bool
+    public static function get(?int $limit): PDOStatement|bool
     {
-        $query = sprintf("SELECT * FROM %s", static::$table);
-        $statement = DB::query($query);
-
-        if (!$statement) {
-            return false;
-        }
-        return $statement;
+        $query = sprintf("SELECT * FROM %s %s", static::$table, "LIMIT $limit" ?? '');
+        return DB::query($query);
     }
 }
