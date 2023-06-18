@@ -3,7 +3,6 @@
 namespace App\Helpers;
 
 use PDO;
-use PDOException;
 use PDOStatement;
 
 class DB
@@ -57,14 +56,10 @@ class DB
         $dbname = $_ENV['DB_DATABASE'];
         $port = $_ENV['DB_PORT'];
 
-        try {
-            $dsn = "mysql:host=$host;dbname=$dbname;port=$port";
-            self::$conn = new PDO($dsn, $username, $password);
-            self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return true;
-        } catch (PDOException $e) {
-            Log::error($e);
-            return false;
-        }
+        $dsn = "mysql:host=$host;dbname=$dbname;port=$port";
+        self::$conn = new PDO($dsn, $username, $password);
+        self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+
+        return true;
     }
 }
