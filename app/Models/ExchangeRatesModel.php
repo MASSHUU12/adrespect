@@ -12,6 +12,11 @@ class ExchangeRatesModel extends Model
         'table_name', 'number', 'effective_date', 'currency', 'code', ' mid'
     ];
 
+    /**
+     * Create the exchange_rates table.
+     *
+     * @return PDOStatement|bool Returns the PDOStatement object on success or false on failure.
+     */
     public static function create(): PDOStatement|bool
     {
         $query = sprintf('CREATE TABLE %s (
