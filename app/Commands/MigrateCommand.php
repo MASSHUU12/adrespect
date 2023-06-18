@@ -19,24 +19,14 @@ class MigrateCommand extends Command
     {
         DB::connect();
 
-        $error_truncating = ExchangeRatesModel::truncate();
+        $truncate = ExchangeRatesModel::truncate();
 
-        if ($error_truncating !== false) {
+        if ($truncate !== false) {
             $output->writeln('Truncating exchange_rates table.');
         } else {
-            $statement = DB::query('
-                    CREATE TABLE exchange_rates (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        table_name VARCHAR(50),
-                        number VARCHAR(50),
-                        effective_date DATE,
-                        currency VARCHAR(100),
-                        code VARCHAR(10),
-                        mid DECIMAL(10, 4)
-                    )
-                ');
+            $create = ExchangeRatesModel::create();
 
-            if ($statement === false) {
+            if ($create === false) {
                 $output->writeln(
                     'There was a problem while creating the table. Make sure the database is running and the connection to it is configured correctly'
                 );
@@ -45,6 +35,8 @@ class MigrateCommand extends Command
 
                 return Command::FAILURE;
             }
+
+            $output->writeln('Created exchange_rates table.');
         }
 
         DB::disconnect();
