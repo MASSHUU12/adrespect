@@ -22,7 +22,9 @@ class Model
     protected static array $fillable = [];
 
     /**
-     * @return PDOStatement|bool
+     * Truncates the table associated with the model.
+     *
+     * @return PDOStatement|bool Returns a PDOStatement object on success or `false` on failure.
      */
     public static function truncate(): PDOStatement|bool
     {
@@ -41,6 +43,18 @@ class Model
     public static function query(string $sql, array $params = []): PDOStatement|bool
     {
         return DB::query($sql, $params);
+    }
+
+    /**
+     * Drops the table associated with the model.
+     *
+     * @return PDOStatement|bool Returns a PDOStatement object on success or `false` on failure.
+     */
+    public static function drop(): PDOStatement|bool
+    {
+        $query = sprintf('DROP TABLE %s', static::$table);
+
+        return DB::query($query);
     }
 
     /**
@@ -95,18 +109,14 @@ class Model
     }
 
     /**
-     * Retrieve all records from the associated table.
+     * Retrieve records from the associated table.
      *
-     * @return PDOStatement|bool Returns PDOStatement on success or false on failure.
+     * @param int|null $limit The maximum number of records to retrieve. If null, retrieves all records.
+     * @return PDOStatement|bool Returns a PDOStatement object on success or false on failure.
      */
-    public static function get(): PDOStatement|bool
+    public static function get(?int $limit): PDOStatement|bool
     {
-        $query = sprintf("SELECT * FROM %s", static::$table);
-        $statement = DB::query($query);
-
-        if (!$statement) {
-            return false;
-        }
-        return $statement;
+        $query = sprintf("SELECT * FROM %s %s", static::$table, "LIMIT $limit" ?? '');
+        return DB::query($query);
     }
 }

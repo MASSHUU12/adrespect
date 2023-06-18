@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use App\Helpers\DB;
+use App\Models\CurrencyConversionsModel;
 use App\Models\ExchangeRatesModel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -19,29 +20,27 @@ class MigrateCommand extends Command
     {
         DB::connect();
 
-        $truncate = ExchangeRatesModel::truncate();
+        // Exchange rates migration
+        if (ExchangeRatesModel::drop()) {
+            $output->writeln('Dropped exchange_rates table.');
 
-        if ($truncate !== false) {
-            $output->writeln('Truncating exchange_rates table.');
-        } else {
-            $create = ExchangeRatesModel::create();
-
-            if ($create === false) {
-                $output->writeln(
-                    'There was a problem while creating the table. Make sure the database is running and the connection to it is configured correctly'
-                );
-
-                DB::disconnect();
-
-                return Command::FAILURE;
+            if (ExchangeRatesModel::create()) {
+                $output->writeln('Created exchange_rates table.');
             }
-
-            $output->writeln('Created exchange_rates table.');
         }
 
-        DB::disconnect();
+        // Currency conversions migration
+        if (CurrencyConversionsModel::drop()) {
+            $output->writeln('Dropped currency_conversions table.');
+
+            if (CurrencyConversionsModel::create()) {
+                $output->writeln('Created currency_conversions table.');
+            }
+        }
 
         $output->writeln('Migration completed.');
+
+        DB::disconnect();
 
         return Command::SUCCESS;
     }

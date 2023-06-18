@@ -42,6 +42,25 @@ class Helpers
     }
 
     /**
+     * Generates an HTML ordered list from the given array of elements.
+     *
+     * @param array $elements An array of elements to be included in the ordered list.
+     * @return string The generated ordered list as a string.
+     */
+    public static function generate_list(array $elements): string
+    {
+        $output = '<ol>';
+
+        foreach ($elements as $element) {
+            $output .= "<li>$element</li>";
+        }
+
+        $output .= '</ol>';
+
+        return $output;
+    }
+
+    /**
      * Cleans a string by replacing spaces with underscores and removing special characters.
      *
      * @param string $string The string to be cleaned.
