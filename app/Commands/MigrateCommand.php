@@ -21,20 +21,20 @@ class MigrateCommand extends Command
         DB::connect();
 
         // Exchange rates migration
-        if (ExchangeRatesModel::drop() !== false) {
+        if (ExchangeRatesModel::drop()) {
             $output->writeln('Dropped exchange_rates table.');
 
-            if (ExchangeRatesModel::create() !== false) {
+            if (ExchangeRatesModel::create()) {
                 $output->writeln('Created exchange_rates table.');
             }
         }
 
         // Currency conversions migration
-        if (CurrencyConversionsModel::drop() !== false) {
-            $output->writeln('Dropped exchange_rates table.');
+        if (CurrencyConversionsModel::drop()) {
+            $output->writeln('Dropped currency_conversions table.');
 
-            if (CurrencyConversionsModel::create() !== false) {
-                $output->writeln('Created exchange_rates table.');
+            if (CurrencyConversionsModel::create()) {
+                $output->writeln('Created currency_conversions table.');
             }
         }
 
