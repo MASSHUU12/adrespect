@@ -2,6 +2,7 @@
 
 use App\Helpers\Convert;
 use App\Helpers\DB;
+use App\Helpers\Helpers;
 use App\Helpers\NBP;
 use App\Models\CurrencyConversionsModel;
 use App\Models\ExchangeRatesModel;
@@ -23,6 +24,7 @@ use App\Models\ExchangeRatesModel;
     <form action="#" method="post">
         <input type="submit" name="save-exchange-rates" value="Save exchange rates"/>
         <input type="submit" name="generate-exchange-rates-table" value="Generate exchange rates table"/>
+        <input type="submit" name="generate-currency-conversions-list" value="Generate currency conversions table"/>
     </form>
     <form action="#" method="post">
         <label for="currency-amount">Amount:</label>
@@ -85,6 +87,22 @@ if (isset($_POST['currency-convert'])) {
     CurrencyConversionsModel::insert([$source, $amount, $target, $converted]);
 
     echo "Source: $amount $db_source_name, converted: $converted $db_target_name";
+}
+
+if (isset($_POST['generate-currency-conversions-list'])) {
+    $out = [];
+
+    foreach (CurrencyConversionsModel::get(10)->fetchAll(PDO::FETCH_ASSOC) as $elem) {
+        $source_amount = $elem['source_currency_amount'];
+        $source_code = $elem['source_currency_code'];
+        $target_amount = $elem['target_currency_amount'];
+        $target_code = $elem['target_currency_code'];
+        $conversion_date = $elem['conversion_date'];
+
+        $out[] = "$conversion_date | $source_amount $source_code => $target_amount $target_code";
+    }
+
+    echo Helpers::generate_list($out);
 }
 ?>
 </body>
