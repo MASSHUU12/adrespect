@@ -73,6 +73,10 @@ class EnvValidator
                 }
             }
 
+            if (in_array($current_value, $rules['other_acceptable_values'])) {
+                continue;
+            }
+
             // Check acceptable values if rules fail
             if (!$is_valid ||
                 (!in_array($current_value, $rules['other_acceptable_values']) && empty($rules['rules']))) {
