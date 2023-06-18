@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class HelpersTest extends TestCase
 {
-    public function testClean_stringWithSpaces()
+    public function testCleanStringWithSpaces()
     {
         $input = "Hello World";
         $expectedOutput = "Hello_World";
@@ -15,7 +15,7 @@ class HelpersTest extends TestCase
         $this->assertEquals($expectedOutput, $actualOutput);
     }
 
-    public function testClean_stringWithSpecialCharacters()
+    public function testCleanStringWithSpecialCharacters()
     {
         $input = "Hello$#World!";
         $expectedOutput = "HelloWorld";
@@ -23,7 +23,7 @@ class HelpersTest extends TestCase
         $this->assertEquals($expectedOutput, $actualOutput);
     }
 
-    public function testClean_stringWithMixedCharacters()
+    public function testCleanStringWithMixedCharacters()
     {
         $input = "Hello_World!123";
         $expectedOutput = "Hello_World123";
@@ -31,11 +31,30 @@ class HelpersTest extends TestCase
         $this->assertEquals($expectedOutput, $actualOutput);
     }
 
-    public function testClean_stringWithEmptyString()
+    public function testCleanStringWithEmptyString()
     {
         $input = "";
         $expectedOutput = "";
         $actualOutput = Helpers::clean_string($input);
+        $this->assertEquals($expectedOutput, $actualOutput);
+    }
+
+    public function testGenerateListWithEmptyArray()
+    {
+        $this->assertEquals('<ol></ol>', Helpers::generate_list([]));
+    }
+
+    public function testGenerateListWithSingleElement()
+    {
+        $this->assertEquals('<ol><li>Apple</li></ol>', Helpers::generate_list(['Apple']));
+    }
+
+    public function testGenerateListWithMultipleElements()
+    {
+        $elements = ['Apple', 'Banana', 'Cherry'];
+        $expectedOutput = '<ol><li>Apple</li><li>Banana</li><li>Cherry</li></ol>';
+        $actualOutput = Helpers::generate_list($elements);
+
         $this->assertEquals($expectedOutput, $actualOutput);
     }
 }
