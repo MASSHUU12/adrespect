@@ -83,6 +83,6 @@ class Helpers
     {
         $pattern = '/^[A-Z]{3}$/'; // Regular expression pattern for ISO 4217 currency codes
 
-        return preg_match($pattern, $code) !== false;
+        return preg_match($pattern, $code) === 1;
     }
 }
