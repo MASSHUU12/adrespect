@@ -74,8 +74,10 @@ class Helpers
     }
 
     /**
-     * @param string $code
-     * @return bool
+     * Checks if a currency code is valid according to the ISO 4217 standard.
+     *
+     * @param string $code The currency code to validate.
+     * @return bool Returns true if the currency code is valid, false otherwise.
      */
     public static function is_currency_code_valid(string $code): bool
     {
