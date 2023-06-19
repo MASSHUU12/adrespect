@@ -44,7 +44,7 @@ use App\Models\ExchangeRatesModel;
         <label for="currency-target">Target currency:</label>
         <input type="text" value="EUR"
                name="currency-target" maxlength="3"
-               title="Source currency must be a valid currency code"
+               title="Target currency must be a valid currency code"
                pattern="^[A-Z]{3}$"
                required/>
         <input type="submit" name="currency-convert" value="Convert"/>
