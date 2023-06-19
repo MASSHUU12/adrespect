@@ -181,9 +181,9 @@ use App\Models\ExchangeRatesModel;
         }
 
         $db_source_mid = $result[0][1];
-        $db_source_name = $result[0][0];
+        $db_source_name = strtoupper($result[0][0]);
         $db_target_mid = $result[1][1];
-        $db_target_name = $result[1][0];
+        $db_target_name = strtoupper($result[1][0]);
 
         // Convert the currency
         $converted = Convert::currency((float)$amount, $db_source_mid, $db_target_mid);
