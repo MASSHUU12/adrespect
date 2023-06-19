@@ -36,9 +36,17 @@ use App\Models\ExchangeRatesModel;
                pattern="^[+-]?\d*\.?\d+$"
                required/>
         <label for="currency-source">Source currency:</label>
-        <input type="text" value="USD" name="currency-source" maxlength="3" required/>
+        <input type="text" value="USD"
+               name="currency-source" maxlength="3"
+               title="Source currency must be a valid currency code"
+               pattern="^[A-Z]{3}$"
+               required/>
         <label for="currency-target">Target currency:</label>
-        <input type="text" value="EUR" name="currency-target" maxlength="3" required/>
+        <input type="text" value="EUR"
+               name="currency-target" maxlength="3"
+               title="Source currency must be a valid currency code"
+               pattern="^[A-Z]{3}$"
+               required/>
         <input type="submit" name="currency-convert" value="Convert"/>
     </form>
 </main>
