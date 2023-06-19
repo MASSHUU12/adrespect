@@ -57,4 +57,22 @@ class HelpersTest extends TestCase
 
         $this->assertEquals($expectedOutput, $actualOutput);
     }
+
+    public function testValidCurrencyCode()
+    {
+        $validCodes = ['USD', 'EUR', 'GBP', 'JPY'];
+
+        foreach ($validCodes as $code) {
+            $this->assertTrue(Helpers::is_currency_code_valid($code) === true);
+        }
+    }
+
+    public function testInvalidCurrencyCode()
+    {
+        $invalidCodes = ['us', '$uro', 'gbp', '123'];
+
+        foreach ($invalidCodes as $code) {
+            $this->assertFalse(Helpers::is_currency_code_valid($code));
+        }
+    }
 }
