@@ -66,7 +66,7 @@ class NBP
             return false;
         }
 
-        $db_result = DB::query('SELECT * FROM exchange_rates LIMIT 250;')->fetchAll(PDO::FETCH_ASSOC);
+        $db_result = ExchangeRatesModel::get(32, ['effective_date'], false)->fetchAll(PDO::FETCH_ASSOC);
 
         if (count($db_result) < 1) {
             return false;
