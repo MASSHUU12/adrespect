@@ -30,7 +30,11 @@ use App\Models\ExchangeRatesModel;
     <?php # Form for currency conversion?>
     <form action="#" method="post">
         <label for="currency-amount">Amount:</label>
-        <input type="number" value="0" name="currency-amount" min="0" required/>
+        <input type="text" value="0"
+               name="currency-amount" minlength="1"
+               maxlength="32" title="The data entered must be a number"
+               pattern="^[+-]?\d*\.?\d+$"
+               required/>
         <label for="currency-source">Source currency:</label>
         <input type="text" value="USD" name="currency-source" maxlength="3" required/>
         <label for="currency-target">Target currency:</label>
@@ -61,10 +65,8 @@ if (isset($_POST['currency-convert'])) {
     $source = $_POST['currency-source'] ?? null;
     $target = $_POST['currency-target'] ?? null;
 
-    $amount_as_int = Convert::str_to_int($amount);
-
     // Check if the data received is valid
-    if (!is_int($amount_as_int) ||
+    if (filter_var($amount, FILTER_VALIDATE_FLOAT) === false ||
         !Helpers::is_currency_code_valid($source) ||
         !Helpers::is_currency_code_valid($target)) {
         echo 'Incorrect data received';
@@ -101,7 +103,7 @@ if (isset($_POST['currency-convert'])) {
     $db_target_name = $result[1][0];
 
     // Convert the currency
-    $converted = Convert::currency($amount_as_int, $db_source_mid, $db_target_mid);
+    $converted = Convert::currency((float)$amount, $db_source_mid, $db_target_mid);
 
     // Insert the conversion into the database
     CurrencyConversionsModel::insert([$source, $amount, $target, $converted]);
