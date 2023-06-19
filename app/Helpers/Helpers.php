@@ -72,4 +72,15 @@ class Helpers
 
         return preg_replace('/[^A-Za-z0-9\-_]/', '', $string); // Removes special chars.
     }
+
+    /**
+     * @param string $code
+     * @return bool
+     */
+    public static function is_currency_code_valid(string $code): bool
+    {
+        $pattern = '/^[A-Z]{3}$/'; // Regular expression pattern for ISO 4217 currency codes
+
+        return preg_match($pattern, $code) !== false;
+    }
 }
