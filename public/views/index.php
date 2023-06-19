@@ -70,8 +70,8 @@ if (isset($_POST['generate-exchange-rates-table'])) {
  */
 if (isset($_POST['currency-convert'])) {
     $amount = $_POST['currency-amount'] ?? null;
-    $source = $_POST['currency-source'] ?? null;
-    $target = $_POST['currency-target'] ?? null;
+    $source = strtoupper($_POST['currency-source']) ?? null;
+    $target = strtoupper($_POST['currency-target']) ?? null;
 
     // Check if the data received is valid
     if (filter_var($amount, FILTER_VALIDATE_FLOAT) === false ||
