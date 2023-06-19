@@ -1,5 +1,9 @@
 <?php
 
+################################
+# Entry point of the application
+################################
+
 require '../vendor/autoload.php';
 
 use Dotenv\Dotenv;
