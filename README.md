@@ -1,5 +1,7 @@
 # Task
 
+> Note: The [site](https://masshuu-task.000webhostapp.com/) may be frozen on first visit. Try going in a few times, after all, it's free hosting
+
 A page that allows saving downloaded exchange rates from the NBP to a database and displaying them in a table.
 In addition, it allows converting a given amount from a selected currency to another and saving the results of the
 conversion to the database.
